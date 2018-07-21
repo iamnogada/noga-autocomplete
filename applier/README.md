@@ -16,4 +16,7 @@
     * redis ip : REDIS_HOST, asia(10.0.04), eu(10.0.0.20), us(10.0.0.12)
     * redis port:REDIS_PORT 6379
 
+gcloud container clusters get-credentials k8s-asia-east1-c --zone asia-east1-c --project noga-autocomplete
+gcloud container clusters get-credentials CLUSTER_NAME --zone=CLUSTER_ZONE --project=PROJECT_ID
+
 

@@ -9,16 +9,16 @@ const redisPort = '6379';
 const redisClient = redis.createClient(redisPort, redisHost);
 
 const BUCKET_AUTOCOMPLETE = process.env.BUCKET_AUTOCOMPLETE || 'bucket-autocomplete';
-const AUTOCOMPLETE_FILENAME = process.env.AUTOCOMPLETE_FILENAME || 'autocompletes.json';;
-// const remoteFile = storage.bucket(BUCKET_AUTOCOMPLETE).file(AUTOCOMPLETE_FILENAME);
+// const AUTOCOMPLETE_FILENAME = process.env.AUTOCOMPLETE_FILENAME || 'autocompletes.json';;
+// // const remoteFile = storage.bucket(BUCKET_AUTOCOMPLETE).file(AUTOCOMPLETE_FILENAME);
 
 
-// var getStream = function () {
-//   var jsonData = 'dataset/products.json',
-//     stream = fs.createReadStream(jsonData, { encoding: 'utf8' }),//,start:0,end:1000000}),
-//     parser = JSONStream.parse('*');
-//   return stream.pipe(parser);
-// };
+// // var getStream = function () {
+// //   var jsonData = 'dataset/products.json',
+// //     stream = fs.createReadStream(jsonData, { encoding: 'utf8' }),//,start:0,end:1000000}),
+// //     parser = JSONStream.parse('*');
+// //   return stream.pipe(parser);
+// // };
 
 var count=0;
 

@@ -1,0 +1,6 @@
+node_modules
+k8s
+.vscode
+.gitignore
+npm-debug.log
+dataset

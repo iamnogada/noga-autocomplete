@@ -1,0 +1,65 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: noga-api-service
+  name: noga-api-service
+  namespace: default
+spec:
+  ports:
+  - nodePort: 31000
+    port: 80
+    protocol: TCP
+    targetPort: 3000
+  selector:
+    app: noga-api-service
+  sessionAffinity: None
+  type: NodePort
+---
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  name: "noga-api-service"
+  labels:
+    app: "noga-api-service"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: "noga-api-service"
+  template:
+    metadata:
+      labels:
+        app: "noga-api-service"
+    spec:
+      containers:
+      - name: "noga-api-service"
+        image: "gcr.io/noga-autocomplete/node-api-service:latest"
+        imagePullPolicy: Always
+        envFrom:
+        - configMapRef:
+             name: noga-applier-config
+        resources:
+          requests:
+            memory: "300Mi"
+            cpu: "0.3"
+          limits:
+            memory: "1Gi"
+            cpu: "1"
+        volumeMounts:
+        - mountPath: /usr/data
+          name: google-credential
+      volumes:
+      - name: google-credential
+        configMap:
+          name: noga-applier-config
+          items:
+          - key: CREDENTIAL
+            path: creadential.json
+          # items:
+          #   key: creadential.json
+          #   path: creadential.json
+---
+
+

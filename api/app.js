@@ -6,7 +6,6 @@ var cookieParser = require('cookie-parser');
 var cacheControl = require('express-cache-controller');
 
 var indexRouter = require('./routes/index');
-// var usersRouter = require('./routes/users');
 
 var app = express();
 

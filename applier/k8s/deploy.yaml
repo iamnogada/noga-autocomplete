@@ -1,0 +1,47 @@
+---
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  name: "noga-applier"
+  namespace: "default"
+  labels:
+    app: "noga-applier"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: "noga-applier"
+  template:
+    metadata:
+      labels:
+        app: "noga-applier"
+    spec:
+      containers:
+      - name: "noga-applier"
+        image: "gcr.io/noga-autocomplete/noga-applier:latest"
+        imagePullPolicy: Always
+        envFrom:
+        - configMapRef:
+             name: noga-applier-config
+        resources:
+          requests:
+            memory: "300Mi"
+            cpu: "0.3"
+          limits:
+            memory: "1Gi"
+            cpu: "1"
+        volumeMounts:
+        - mountPath: /usr/data
+          name: google-credential
+      volumes:
+      - name: google-credential
+        configMap:
+          name: noga-applier-config
+          items:
+          - key: CREDENTIAL
+            path: creadential.json
+          # items:
+          #   key: creadential.json
+          #   path: creadential.json
+
+
