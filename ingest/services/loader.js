@@ -2,6 +2,7 @@ const fs = require('fs');
 const JSONStream = require('JSONStream');
 const es = require('event-stream');
 const storage = require('@google-cloud/storage')();
+var path = require('path');
 const util = require('util');
 const fsWriter = util.promisify(fs.writeFile);
 
@@ -45,7 +46,7 @@ _loader.start = () => {
       ingestWord(productMap, keyMap,2);
       ingestWord(wordMap, keyMap,10);
       
-      var autocompleteList = Array.from(keyMap).map(x=>x[1]);
+      var autocompleteList = Array.from(keyMap).map(x=>x[1]).slice(0,10);
       console.log("key size:"+autocompleteList.length);
       fs.writeFile(`dataset/${AUTOCOMPLETE_FILENAME}`, JSON.stringify(autocompleteList), () => { });
       console.log(`dataset/${AUTOCOMPLETE_FILENAME}`);

@@ -10,7 +10,7 @@ const listener = require('./services/pubsub');
 listener.start();
 
 var app = express();
-
+console.log(__dirname);
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');

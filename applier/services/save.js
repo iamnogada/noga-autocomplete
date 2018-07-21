@@ -10,7 +10,7 @@ const redisClient = redis.createClient(redisPort, redisHost);
 
 const BUCKET_AUTOCOMPLETE = process.env.BUCKET_AUTOCOMPLETE || 'bucket-autocomplete';
 const AUTOCOMPLETE_FILENAME = process.env.AUTOCOMPLETE_FILENAME || 'autocompletes.json';;
-const remoteFile = storage.bucket(BUCKET_AUTOCOMPLETE).file(AUTOCOMPLETE_FILENAME);
+// const remoteFile = storage.bucket(BUCKET_AUTOCOMPLETE).file(AUTOCOMPLETE_FILENAME);
 
 
 // var getStream = function () {
@@ -19,19 +19,25 @@ const remoteFile = storage.bucket(BUCKET_AUTOCOMPLETE).file(AUTOCOMPLETE_FILENAM
 //     parser = JSONStream.parse('*');
 //   return stream.pipe(parser);
 // };
-const readStream = () => {
-  var gcsStream = remoteFile.createReadStream();
-  var parser = JSONStream.parse('*');
-  return gcsStream.pipe(parser);
-};
+
 var count=0;
 
 var _loader = {};
-_loader.start = () => {
+_loader.start = (filename) => {
+  const remoteFile=storage.bucket(BUCKET_AUTOCOMPLETE).file(filename);
+  const readStream = () => {
+    var gcsStream = remoteFile.createReadStream();
+    var parser = JSONStream.parse('*');
+    return gcsStream.pipe(parser);
+  };
   readStream()
     .pipe(es.mapSync(function (data) {
-      if (null == data.name || 0 == data.name.length) return;      
-      redisClient.zadd("auto:" + data.name[0].toLocaleUpperCase(), data.rank, data.name);
+      if (null == data.key || 0 == data.key.length) return;
+      data.items.forEach((ele)=>{
+        redisClient.zadd("auto:" + data.key.toLocaleUpperCase(), ele.rank, ele.name);
+        // console.log(`added ${ele.name} with rank ${ele.rank}`);
+        count++;
+      });
     })).on('end', () => {
       console.log("Import done:"+count);
     });

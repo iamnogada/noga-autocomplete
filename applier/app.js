@@ -43,8 +43,5 @@ process.on('exit', function() {
   // Add shutdown logic here.
   listener.stop();
 });
-process.on('SIGINT', function() {
-  // Add shutdown logic here.
-  listener.stop();
-});
+
 module.exports = app;

@@ -14,12 +14,13 @@ const subscription = pubsub.subscription(subscriptionName);
 let messageCount = 0;
 const messageHandler = message => {
     console.log(`=========Received message ${message.id}:`);
-    console.log(`\tData: ${message.data}`);
+    const data = JSON.parse(message.data.toString());
+    console.log(`\File: ${data.name}`);
     messageCount += 1;
     // "Ack" (acknowledge receipt of) the message
     try {
         // TODO: import data in redis
-        importer.start();
+        importer.start(data.name);
         message.ack();
     } catch (err) {
         console.error('ERROR:', err);
