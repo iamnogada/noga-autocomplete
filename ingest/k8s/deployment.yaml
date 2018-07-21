@@ -1,0 +1,47 @@
+---
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  name: "noga-ingest"
+  namespace: "default"
+  labels:
+    app: "noga-ingest"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: "noga-ingest"
+  template:
+    metadata:
+      labels:
+        app: "noga-ingest"
+    spec:
+      containers:
+      - name: "noga-ingest"
+        image: "gcr.io/noga-autocomplete/noga-ingest:latest"
+        imagePullPolicy: Always
+        envFrom:
+        - configMapRef:
+             name: noga-ingest-config
+        resources:
+          requests:
+            memory: "300Mi"
+            cpu: "0.3"
+          limits:
+            memory: "1Gi"
+            cpu: "1"
+        volumeMounts:
+        - mountPath: /usr/data
+          name: google-credential
+      volumes:
+      - name: google-credential
+        configMap:
+          name: noga-ingest-config
+          items:
+          - key: CREDENTIAL
+            path: creadential.json
+          # items:
+          #   key: creadential.json
+          #   path: creadential.json
+
+

@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: noga-ingest-config
+data:
+  GOOGLE_APPLICATION_CREDENTIALS: /usr/data/creadential.json
+    # * GOOGLE_APPLICATION_CREDENTIALS_PATH=/Users/seungil/service/gcp/noga-autocomplete-key.json
+  PUB_PRODUCT: topic-product
+  SUB_PRODUCT: sub-product
+  PROJECT_ID: noga-autocomplete
+  BUCKET_PRODUCT: bucket-product
+  PRODUCT_FILE_NAME: products.json
+  BUCKET_AUTOCOMPLETE: bucket-autocomplete
+  AUTOCOMPLETE_FILENAME: autocompletes.json
+  CREDENTIAL: |
+    {
+      "type": "service_account",
+      "project_id": "noga-autocomplete",
+      "private_key_id": "e22f9aaf9a953c1030c6dd930cb85352325b7fea",
+      "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDFhVhJPbjfZRf1\ncOSQvp3ky6w06+6mT78Lpj733HF7cUaAwAgpv4n8bt2oYVMIRi7mUX5h0xjbmm2m\noZSf0ZGaLm6HPAdF1yOHD6HuhQgY1eqkXfKDXRMecb0pSneXCN+nUMBb1CBqC93o\nfwwHivR4ia2ESpRzrQxsx9SeaiLg3IUMZfCp6gCco+XI1MTBdLG+Mq8BrO2jsH1o\n5QigdsegHykeL94i0sLd2hdUV5yyFBuZcIdgMNDLPeQbj/Wjro9uJ9fEUjq4QZZV\nbgd0PU33NjAyjM3gVPvHJ5/wBDHBg/vUf2/ghdSoH7sQdfq701H2Vl8Gsp00DahY\nfdAzGJkJAgMBAAECggEABhXEkYUQQ/mWUl5m/DqTHLBVns/B62e7h/1YJUSqTlZA\nCMlhtv+KnbdApuZQq4mV+kx6a0MYmfNY+3Aw5veK18gkaZAk3Tbyhj+qCnIYvMMi\nVmv6g6eDZkW0wSflJUcFtN7c/jc7xGiXLolzcmwKeggry06M4j9riZJib3rvliPH\nJZfPYa/OQs1WwfDvfDa3Ci4N5/XKvBTPMODWQs6H2H5euf8sJKu/YAbWrs4+4BqS\nZ+N+W8LsyZM50CVJp6LdcSuzZ2rEP4EtKs/o2mp8FdyNjC2V0uScxwh3kfJktD5u\nrkr0G987M/lrA+1H4fec2mcteS/7qmUyeyFhcDlBPQKBgQDxerulwNxLI3vBlDve\n41kaWsb5RNxehssUPA1ZtvQ2g+xnW+RH5QcuU/jku3h05nX+9gIo88FauHHb8Z0i\nvgbR7nPuhVr7iTSJS4SQY7VOrYeS31EVg0VOs+bAg5O+73xA8F2Q6RrAVOTAJfYq\nyeyL+V5RVMVX2xtxN7Upx4ZLBwKBgQDRZe0d9jduZAhfITyJajD81ooAzHLlWY/q\ni88LIzp23EQZlOpRKGFyVRsNnjTIZqG5bQxzkOqjBbxCkcf+BGaOtPBR1laDPRJK\niTRxkjM7+puLGccx5lNMwXB4qrNQYMjZW13LVdZ3MxKIoSyIJbKu6M35G53J7XDm\nUV0uphAnbwKBgQC4E50Tf27ugEAIkp0JDTmRE3316n4qOIp6BEURDJwhKnN9Xtkn\nzPiqYiyrABWU11E/Z/zBhv7vzwZMaWQlZcIBKcqKGnH+qNq5hi2pe7hsH2/nkABZ\na9XbZtwSCLsJo7mOLyzEGE3iK1Ss/MMoXwDIuvEhAoPkswu6RIL/NC+05QKBgE/C\ndj46YcTPn4y0uT1SUJSOF4TUW1NW+QWK+XMxmPxbTCk+Wr5NFkkZd7OJNmu7BBEA\nI4UFhwpPjfUBWF8+R95Ft2BEtzFIGuZ/OpWj7ZYEECk8yW4NYF9VM0UTKDgOlZKN\nRb3E1WsT7hRS6AZ37YbIMGSZi1G1+pIQHeE96dtLAoGBAKHuY2ooygdaZGQMofVo\n/r5BZTGROECmrCbNdUDOrzQAqH8QtBBgPi50iNZ+igz7a+U3PAGD/W34VyFANYQD\nccSYMqNpD7VM/8h45k6tdZR0+Dr0hcxkdWU1MvIan8ruutrU4WzYsT8B0RiS4OAt\ne0L7SgdO5IFWrl+68zbOPGH+\n-----END PRIVATE KEY-----\n",
+      "client_email": "owner-32@noga-autocomplete.iam.gserviceaccount.com",
+      "client_id": "107096634227941886835",
+      "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+      "token_uri": "https://accounts.google.com/o/oauth2/token",
+      "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+      "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/owner-32%40noga-autocomplete.iam.gserviceaccount.com"
+    }
+---
+# apiVersion: v1
+# kind: Secret
+# metadata:
+#   name: noga-creadential-secret
+# data:
+#   creadential.json: |
+#     {{- include "cat $GOOGLE_APPLICATION_CREDENTIALS" }}
