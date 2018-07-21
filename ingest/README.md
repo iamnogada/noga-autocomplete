@@ -9,7 +9,7 @@
     * GOOGLE_APPLICATION_CREDENTIALS=${path}
     * GOOGLE_APPLICATION_CREDENTIALS_PATH=/Users/seungil/service/gcp/noga-autocomplete-key.json
     * pubsub topic: PUB_PRODUCT=''
-    * pusub subscription:SUB_PRODUCT||'topic-product'
+    * pusub subscription:SUB_PRODUCT||'sub-product'
     * projectid:PROJECT_ID||'noga-autocomplete'
     * bucket for product: BUCKET_PRODUCT='bucket-product'
     * product filename: PRODUCT_FILE_NAME='products.json'

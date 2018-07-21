@@ -1,6 +1,6 @@
 ## init
 
-* create nodejs : express [name-project]
+* create nodejs : express --view=pug [name-project]
 * credentila : GOOGLE_APPLICATION_CREDENTIALS=/Users/seungil/service/gcp/noga-autocomplete-key.json
 
 * raw data : regional bucket, us-central1, gs://bucker-product
@@ -16,3 +16,5 @@
 gcloud compute instances create asia-play --source-instance-template play-template --zone $ZONE_ASIA
 gcloud compute instances create us-play --source-instance-template play-template --zone $ZONE_US
 gcloud compute instances create eu-play --source-instance-template play-template --zone $ZONE_EU
+
+## applier : express --view=pug applier

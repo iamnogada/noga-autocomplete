@@ -1,19 +1,16 @@
 const dataloader = require('./loader');
 const PubSub = require(`@google-cloud/pubsub`);
 
-//web
-const express = require('express');
-
 // Creates a client
 // const pubsub = new PubSub();
-const projectId = process.env.PROJECT_ID||'noga-autocomplete';
+const projectId = process.env.PROJECT_ID || 'noga-autocomplete';
 const pubsub = new PubSub({
-    projectId: projectId,
-  });
+  projectId: projectId,
+});
 /**
  * TODO(developer): Uncomment the following lines to run the sample.
  */
-const subscriptionName = process.env.SUB_PRODUCT||'sub-product';
+const subscriptionName = process.env.SUB_PRODUCT || 'sub-product';
 // References an existing subscription
 const subscription = pubsub.subscription(subscriptionName);
 
@@ -24,13 +21,13 @@ const messageHandler = message => {
   console.log(`\tData: ${message.data}`);
   messageCount += 1;
   // "Ack" (acknowledge receipt of) the message
-  try{
+  try {
     dataloader.start();
     message.ack();
-  }catch(err){
-
+  } catch (err) {
+    console.error('ERROR:', err);
   }
-  
+
 };
 // const _listener = {
 //     "start": ()=> subscription.on(`message`, messageHandler),
@@ -39,7 +36,7 @@ const messageHandler = message => {
 //     }
 // };
 var _listener = {};
-_listener.start = ()=> subscription.on(`message`, messageHandler);
-_listener.stop = ()=>subscription.removeListener('message', messageHandler);
+_listener.start = () => subscription.on(`message`, messageHandler);
+_listener.stop = () => subscription.removeListener('message', messageHandler);
 module.exports = _listener;
 // subscription.removeListener('message', messageHandler);
