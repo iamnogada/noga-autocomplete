@@ -1,4 +1,5 @@
 const PubSub = require(`@google-cloud/pubsub`);
+const importer = require('./save');
 // Creates a client
 // const pubsub = new PubSub();
 const projectId = process.env.PROJECT_ID || 'noga-autocomplete';
@@ -18,6 +19,7 @@ const messageHandler = message => {
     // "Ack" (acknowledge receipt of) the message
     try {
         // TODO: import data in redis
+        importer.start();
         message.ack();
     } catch (err) {
         console.error('ERROR:', err);
@@ -27,6 +29,9 @@ const messageHandler = message => {
 
 var _service = {};
 _service.start = () => subscription.on(`message`, messageHandler);
-_service.stop = () => subscription.removeListener('message', messageHandler);
+_service.stop = () => {
+    subscription.removeListener('message', messageHandler);
+    importer.stop();
+}
 
 module.exports = _service;
