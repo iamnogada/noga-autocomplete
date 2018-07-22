@@ -1,0 +1,11 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: noga-api-ingress
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: k8s-globalip
+    kubernetes.io/ingress.class: gce-multi-cluster
+spec:
+  backend:
+    serviceName: noga-api-service
+    servicePort: 80

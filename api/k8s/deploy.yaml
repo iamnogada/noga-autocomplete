@@ -61,5 +61,19 @@ spec:
           #   key: creadential.json
           #   path: creadential.json
 ---
-
+apiVersion: "autoscaling/v1"
+kind: "HorizontalPodAutoscaler"
+metadata:
+  name: "noga-api-hpa"
+  namespace: "default"
+  labels:
+    app: "noga-api"
+spec:
+  scaleTargetRef:
+    kind: "Deployment"
+    name: "noga-api-service"
+    apiVersion: "apps/v1beta1"
+  minReplicas: 1
+  maxReplicas: 5
+  targetCPUUtilizationPercentage: 80
 
