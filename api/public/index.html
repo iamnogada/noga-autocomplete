@@ -7,7 +7,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-	<title>Electro - HTML Ecommerce Template</title>
+	<title>Electro - Market</title>
 
 	<!-- Google font -->
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
@@ -128,12 +128,12 @@
 					<!-- SEARCH BAR -->
 					<div class="col-md-6">
 						<div class="header-search">
-								<form autocomplete="off" action="#">
-									<div class="autocomplete" style="width:300px;">
-									  <input id="myInput" type="text" name="myCountry" style="width:300px;height:40px;">
-									</div>
-									<button class="search-btn">Search</button>
-								  </form>
+							<form autocomplete="off" action="#">
+								<div class="autocomplete" style="width:300px;">
+									<input id="myInput" type="text" name="myCountry" style="width:300px;height:40px;">
+								</div>
+								<button class="search-btn">Search</button>
+							</form>
 						</div>
 					</div>
 					<!-- /SEARCH BAR --<button class="search-btn">Search</button>>
@@ -1492,92 +1492,92 @@
 
 </body>
 <script>
-		function autocomplete(inp) {
-		  /*the autocomplete function takes two arguments,
-		  the text field element and an array of possible autocompleted values:*/
-		  var currentFocus;
-		  var arr;
-		  /*execute a function when someone writes in the text field:*/
-		  inp.addEventListener("input", function(e) {
-			  var a, b, i, val = this.value;
-			  var that = this;
-			  /*close any already open lists of autocompleted values*/
-			  closeAllLists();
-			  if (!val) { return false;}
-			  currentFocus = -1;
-			  axios.get(`/api/${val}`)
-			    .then(function(res){
+	function autocomplete(inp) {
+		/*the autocomplete function takes two arguments,
+		the text field element and an array of possible autocompleted values:*/
+		var currentFocus;
+		var arr;
+		/*execute a function when someone writes in the text field:*/
+		inp.addEventListener("input", function (e) {
+			var a, b, i, val = this.value;
+			var that = this;
+			/*close any already open lists of autocompleted values*/
+			closeAllLists();
+			if (!val) { return false; }
+			currentFocus = -1;
+			var current = new Date();
+			
+			axios.get(`/api/${val}/${current.stamp()}`)
+				.then(function (res) {
 					arr = res.data;
 
-					 /* Start -View autocomplete */
-			  
-			  /*create a DIV element that will contain the items (values):*/
-			  a = document.createElement("DIV");
-			  a.setAttribute("id", that.id + "autocomplete-list");
-			  a.setAttribute("class", "autocomplete-items");
-			  /*append the DIV element as a child of the autocomplete container:*/
-			  that.parentNode.appendChild(a);
-			  /*for each item in the array...*/
-			  for (i = 0; i < arr.length; i++) {
-				/*check if the item starts with the same letters as the text field value:*/
-				// if (arr[i].name.substr(0, val.length).toUpperCase() == val.toUpperCase()) {
-				  /*create a DIV element for each matching element:*/
-				  b = document.createElement("DIV");
-				  /*make the matching letters bold:*/
-				  b.innerHTML = arr[i];
-				  /*insert a input field that will hold the current array item's value:*/
-				  b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
-				  /*execute a function when someone clicks on the item value (DIV element):*/
-				  b.addEventListener("click", function(e) {
-					  /*insert the value for the autocomplete text field:*/
-					  inp.value = this.getElementsByTagName("input")[0].value;
-					  /*close the list of autocompleted values,
-					  (or any other open lists of autocompleted values:*/
-					  closeAllLists();
-				  });
-				  a.appendChild(b);
-				// }
-			  }
-			   /* End-View autocomplete */
+					/*create a DIV element that will contain the items (values):*/
+					a = document.createElement("DIV");
+					a.setAttribute("id", that.id + "autocomplete-list");
+					a.setAttribute("class", "autocomplete-items");
+					/*append the DIV element as a child of the autocomplete container:*/
+					that.parentNode.appendChild(a);
+					/*for each item in the array...*/
+					for (i = 0; i < arr.length; i++) {
+						/*check if the item starts with the same letters as the text field value:*/
+						// if (arr[i].name.substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+						/*create a DIV element for each matching element:*/
+						b = document.createElement("DIV");
+						/*make the matching letters bold:*/
+						b.innerHTML = arr[i];
+						/*insert a input field that will hold the current array item's value:*/
+						b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+						/*execute a function when someone clicks on the item value (DIV element):*/
+						b.addEventListener("click", function (e) {
+							/*insert the value for the autocomplete text field:*/
+							inp.value = this.getElementsByTagName("input")[0].value;
+							/*close the list of autocompleted values,
+							(or any other open lists of autocompleted values:*/
+							closeAllLists();
+						});
+						a.appendChild(b);
+						// }
+					}
+					/* End-View autocomplete */
 				})
-				.catch(function(err){
-					console.log("500: "+err.response.data);
+				.catch(function (err) {
+					console.log("500: " + err.response.data);
 				})
-				.then(function(){
+				.then(function () {
 					//final
 				});
 
 
 
 
-			 
-		  });
-		  /*execute a function presses a key on the keyboard:*/
-		  inp.addEventListener("keydown", function(e) {
-			  var x = document.getElementById(this.id + "autocomplete-list");
-			  if (x) x = x.getElementsByTagName("div");
-			  if (e.keyCode == 40) {
+
+		});
+		/*execute a function presses a key on the keyboard:*/
+		inp.addEventListener("keydown", function (e) {
+			var x = document.getElementById(this.id + "autocomplete-list");
+			if (x) x = x.getElementsByTagName("div");
+			if (e.keyCode == 40) {
 				/*If the arrow DOWN key is pressed,
 				increase the currentFocus variable:*/
 				currentFocus++;
 				/*and and make the current item more visible:*/
 				addActive(x);
-			  } else if (e.keyCode == 38) { //up
+			} else if (e.keyCode == 38) { //up
 				/*If the arrow UP key is pressed,
 				decrease the currentFocus variable:*/
 				currentFocus--;
 				/*and and make the current item more visible:*/
 				addActive(x);
-			  } else if (e.keyCode == 13) {
+			} else if (e.keyCode == 13) {
 				/*If the ENTER key is pressed, prevent the form from being submitted,*/
 				e.preventDefault();
 				if (currentFocus > -1) {
-				  /*and simulate a click on the "active" item:*/
-				  if (x) x[currentFocus].click();
+					/*and simulate a click on the "active" item:*/
+					if (x) x[currentFocus].click();
 				}
-			  }
-		  });
-		  function addActive(x) {
+			}
+		});
+		function addActive(x) {
 			/*a function to classify an item as "active":*/
 			if (!x) return false;
 			/*start by removing the "active" class on all items:*/
@@ -1586,31 +1586,43 @@
 			if (currentFocus < 0) currentFocus = (x.length - 1);
 			/*add class "autocomplete-active":*/
 			x[currentFocus].classList.add("autocomplete-active");
-		  }
-		  function removeActive(x) {
+		}
+		function removeActive(x) {
 			/*a function to remove the "active" class from all autocomplete items:*/
 			for (var i = 0; i < x.length; i++) {
-			  x[i].classList.remove("autocomplete-active");
+				x[i].classList.remove("autocomplete-active");
 			}
-		  }
-		  function closeAllLists(elmnt) {
+		}
+		function closeAllLists(elmnt) {
 			/*close all autocomplete lists in the document,
 			except the one passed as an argument:*/
 			var x = document.getElementsByClassName("autocomplete-items");
 			for (var i = 0; i < x.length; i++) {
-			  if (elmnt != x[i] && elmnt != inp) {
-				x[i].parentNode.removeChild(x[i]);
-			  }
+				if (elmnt != x[i] && elmnt != inp) {
+					x[i].parentNode.removeChild(x[i]);
+				}
 			}
-		  }
-		  /*execute a function when someone clicks in the document:*/
-		  document.addEventListener("click", function (e) {
-			  closeAllLists(e.target);
-			  });
 		}
-		
-		/*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
-		autocomplete(document.getElementById("myInput"));
-		
-		</script>
+		/*execute a function when someone clicks in the document:*/
+		document.addEventListener("click", function (e) {
+			closeAllLists(e.target);
+		});
+	}
+
+	/*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
+	autocomplete(document.getElementById("myInput"));
+	Date.prototype.stamp = function () {
+		var year = this.getUTCFullYear().toString();
+		var month = this.getUTCMonth();
+		month = month> 9 ? month:"0"+month;
+		var hour = this.getUTCMonth();
+		hour = hour> 9 ? hour:"0"+hour;
+		var minute = this.getMinutes();
+		minute = minute < 30 ? "00":"30";
+
+		return year+month+hour+minute;
+	};
+
+</script>
+
 </html>

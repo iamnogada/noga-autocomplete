@@ -16,7 +16,7 @@ app.set('view engine', 'pug');
 app.use(cacheControl({
   // noCache: true,
   // noStore: true
-  maxAge: 3600,
+  maxAge: 1800,
   public: true
 }));
 app.use(express.json());
