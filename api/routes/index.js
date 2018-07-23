@@ -18,8 +18,13 @@ async function autocomplete(req, res, next) {
     //{ <field>: { $regex: /pattern/, $options: '<options>' } }
     //{ <field>: { $regex: 'pattern', $options: '<options>' } }
     client.zrevrange(`auto:${req.params.key.toUpperCase()}`, 0, 10, (err, sset) => {
-      if (0 == sset.length) console.log("MISSING: " + req.params.key);
-      res.json(sset);
+      if (0 == sset.length){
+        console.log("MISSING: " + req.params.key);
+        res.status(404).send('No data');
+      } else{
+        res.json(sset);
+      }
+      
       // res.send(JSON.stringify(sset));
     });
   }

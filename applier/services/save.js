@@ -24,6 +24,7 @@ var count=0;
 
 var _loader = {};
 _loader.start = (filename) => {
+  count=0;
   const remoteFile=storage.bucket(BUCKET_AUTOCOMPLETE).file(filename);
   const readStream = () => {
     var gcsStream = remoteFile.createReadStream();

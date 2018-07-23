@@ -1,0 +1,19 @@
+[
+    {
+        "key": "",
+        "items": [
+            {
+                "name": "Google Cloud Platform",
+                "rank": 1099
+            },
+            {
+                "name": "Kubernetes",
+                "rank": 1090
+            },
+            {
+                "name": "Cloud Storage",
+                "rank": 1090
+            }
+        ]
+    }
+]
