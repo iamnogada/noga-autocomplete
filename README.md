@@ -1,7 +1,7 @@
 ## init
 
 * create nodejs : express --view=pug [name-project]
-* credentila : GOOGLE_APPLICATION_CREDENTIALS=/Users/seungil/service/gcp/noga-autocomplete-key.json
+* credentila : GOOGLE_APPLICATION_CREDENTIALS=../noga-autocomplete-key.json
 
 * raw data : regional bucket, us-central1, gs://bucker-product
 
